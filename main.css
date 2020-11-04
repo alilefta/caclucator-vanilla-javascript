@@ -1,0 +1,239 @@
+body{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+
+}
+
+
+.container{
+	border: 1px solid #1f1f1f;
+	height:500px;
+	padding: 0.7rem;
+	width: 400px;
+	display: grid;
+	grid-template-columns: repeat(4, 92.2px);
+	grid-template-rows: repeat(6, 62px);
+	grid-template-areas: 
+	"result result result result"
+	"plus minus crossB divide"
+	"seven eight nine equal"
+	"four five six equal"
+	"one two three equal"
+	"zeroB dot clear equal";
+	grid-gap: 10px;
+	padding: 2.6rem 0.9rem 0rem 0.9rem;
+	border-radius: 10px;
+	border:none;
+	box-shadow: 2px 3px 10px rgba(0,0,0,0.5)
+}
+
+.result{
+
+	border:1px solid black;
+	grid-area: result;
+	border:1px solid #aaaaaa;
+	padding: 0.7rem 1rem;
+	font-size: 2rem;
+	background-color: #eeeeee;
+	position: relative;
+	border-radius: 4px;
+	color:rgba(10,10,10,.7);
+}
+
+button{
+	display: block;
+	outline:none;
+/*	box-shadow: 2px 2px 2px rgba(0,0,0, 0.3);
+*/	transition: background-color 0.2s linear, color 0.2s linear;
+}
+
+button:hover{
+	background-color: #fff;
+	color:#1f1f1f;
+	border:1px solid #ccc;
+	transition: background-color 0.2s linear, color 0.2s linear;
+}
+
+button:active{
+	box-shadow: 3px 4px 2px #f9f9f9, inset 2px 2px 8px #ccc, inset -2px -2px 8px #ccc;
+	font-size: 1.3rem;
+	transition: font-size 0.1s linear, box-shadow 0.1s linear
+
+}
+
+.calculateFormula{
+	position: absolute;
+	top:0;
+	right: 0;
+	font-size: 1.2rem
+}
+
+.plus{
+	grid-area: plus;
+	padding: 0.2rem 1rem;
+	font-size: 1.5rem;
+	background-color: #a5ca41;
+	border:none;
+	border-radius: 4px;
+	color:#ffffff;
+}
+.minus{
+	grid-area: minus;
+	padding: 0.2rem 1rem;
+	font-size: 1.5rem;
+	background-color: #a5ca41;
+	border:none;
+	border-radius: 4px;
+	color:#ffffff;
+
+}
+.cross{
+	grid-area: crossB;
+	padding: 0.2rem 1rem;
+	font-size: 1.5rem;
+	background-color: #a5ca41;
+	border:none;
+	border-radius: 4px;
+	color:#ffffff;
+
+}
+.divide{
+	grid-area: divide;
+	padding: 0.2rem 1rem;
+	font-size: 1.5rem;
+	background-color: #a5ca41;
+	border:none;
+	border-radius: 4px;
+	color:#ffffff;
+
+}
+.dot{
+	grid-area: dot;
+	padding: 0.2rem 1rem;
+	font-size: 1.5rem;
+	color:#ffffff;
+	border:none;
+	border-radius: 4px;
+	background-color: #aaaaaa;
+
+
+}
+.clear{
+	grid-area: clear;
+	padding: 0.2rem 1rem;
+	font-size: 1.5rem;
+	background-color: #aaaaaa;
+	color:#ffffff;
+	border-radius: 4px;
+	border:none;
+
+
+}
+.equal{
+	grid-area: equal;
+	background-color: #DCA565;
+	color:#ffffff;
+	font-size: 1.6rem;
+	height: auto;
+	border-radius: 4px;
+	border:none;
+
+}
+
+.seven{
+	grid-area: seven;
+	font-size: 1.5rem;
+		padding: 0.2rem 1rem;
+		border-radius:4px;
+		border:none;
+		color:#ffffff;
+		background-color: #aaaaaa;
+}
+.eight{
+	grid-area: eight;
+	font-size: 1.5rem;
+	padding: 0.2rem 1rem;
+	border-radius:4px;
+	border:none;
+	color:#ffffff;
+	background-color: #aaaaaa;
+}
+.nine{
+	grid-area: nine;
+	font-size: 1.5rem;
+	padding: 0.2rem 1rem;
+	border-radius:4px;
+	border:none;
+	color:#ffffff;
+	background-color: #aaaaaa;
+}
+.four{
+	grid-area: four;
+	font-size: 1.5rem;
+	padding: 0.2rem 1rem;
+	border-radius:4px;
+	border:none;
+	color:#ffffff;
+	background-color: #aaaaaa;
+}
+.five{
+	grid-area: five;
+	font-size: 1.5rem;
+	padding: 0.2rem 1rem;
+	border-radius:4px;
+	border:none;
+	color:#ffffff;
+	background-color: #aaaaaa;
+
+}
+.six{
+	grid-area: six;
+	font-size: 1.5rem;
+	padding: 0.2rem 1rem;
+	border-radius:4px;
+	border:none;
+	color:#ffffff;
+	background-color: #aaaaaa;
+
+}
+.one{
+	grid-area: one;
+	font-size: 1.5rem;
+	padding: 0.2rem 1rem;
+	border-radius:4px;
+	border:none;
+	color:#ffffff;
+	background-color: #aaaaaa;
+
+}
+.two{
+	grid-area: two;
+	font-size: 1.5rem;
+	padding: 0.2rem 1rem;
+	border-radius:4px;
+	border:none;
+	color:#ffffff;
+	background-color: #aaaaaa;
+
+}
+.three{
+	grid-area: three;
+	font-size: 1.5rem;
+	padding: 0.2rem 1rem;
+	border-radius:4px;
+	border:none;
+	color:#ffffff;
+	background-color: #aaaaaa;
+
+}
+.zero{
+	grid-area: zeroB;
+	font-size: 1.5rem;
+	padding: 0.2rem 1rem;
+	border-radius:4px;
+	border:none;
+	color:#ffffff;
+	background-color: #aaaaaa;
+}
