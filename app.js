@@ -1,146 +1,135 @@
 
-const result = document.querySelector('.resultFormula');
-const plus = document.querySelector('.plus');
-const minus = document.querySelector('.minus');
-const cross = document.querySelector('.cross');
-const divide = document.querySelector('.divide');
-const seven = document.querySelector('.seven');
-const eight = document.querySelector('.eight');
-const nine = document.querySelector('.nine');
-const four = document.querySelector('.four');
-const five = document.querySelector('.five');
-const six = document.querySelector('.six');
-const one = document.querySelector('.one');
-const two = document.querySelector('.two');
-const three = document.querySelector('.three');
-const zero = document.querySelector('.zero');
-const dot = document.querySelector('.dot');
-const clearBtn = document.querySelector('.clear');
-const equal = document.querySelector('.equal');
-const calcForm = document.querySelector('.calculateFormula')
 
-let numbers = [dot, zero, one, two, three, four, five, six, seven, eight, nine];
-let leftOperand = '';
-let rightOperand = '';
-let formula = [];
-let operand = '';
-let operator = false;
+class Calculator {
+	constructor(previousNumberTxt, currentNumberTxt){
+		this.previousNumberTxt = previousNumberTxt;
+		this.currentNumberTxt = currentNumberTxt;
+		this.clearResult();
+	}
+	clearResult(){
+		this.previousOperand = '';
+		this.currentOperand = '';
+		this.operation = undefined;
+	}
 
-let operations = {
-	'+': function(x, y){
-		if(formula[0] == '-'){
-			return -x + y;
-		}else{
-			return x + y;
+	addNumber(number){
+		console.log(this.currentOperand)
+		console.log(this.previousOperand)
+
+		if(number === '.' && this.currentOperand.includes('.')) return;
+		this.currentOperand = this.currentOperand.toString() + number.toString();
+	}
+
+	compute(){
+		let computation;
+		const prev = parseFloat(this.previousOperand);
+		const current = parseFloat(this.currentOperand);
+		if(isNaN(prev) || isNaN(current)) return;
+
+		switch(this.operation){
+			case '+':
+				computation = prev + current;
+				break;
+			case '-':
+				computation = prev - current;
+				break;
+			case 'x':
+				computation = prev * current;
+				break;
+			case '÷':
+				computation = prev / current;
+				break;
+			default:
+				return
 		}
-	},
-	'-': function(x, y){
-		if(formula[0] == '-'){
-			return -x - y;
-		}else{
-			return x - y;
+		this.currentOperand = computation.toString();;
+		this.operation = undefined;
+		this.previousOperand = '';
+	}
+
+	chooseOperation(operation){
+		if(this.currentOperand === '') return;
+		if(this.previousOperand !== ''){
+			this.compute();
 		}
-	},
-	'/': function(x, y){return x / y},
-	'*': function(x, y){return x * y}
+		this.operation = operation;
+		this.previousOperand = this.currentOperand;
+		this.currentOperand = '';
+	}
+	getDisplayNumber(number){
+		const stringNumber = number.toString();
+		const integerDigits = parseFloat(stringNumber.split('.')[0]);
+		const decimalDigits = stringNumber.split('.')[1];
+
+		let integerDisplay;
+
+		if(isNaN(integerDigits)){
+			integerDisplay = '';
+		}else{
+			integerDisplay = integerDigits.toLocaleString('en', {
+				maximumFractionDigits:0
+			});
+		}
+		if(decimalDigits != null){
+			return `${integerDisplay}.${decimalDigits}`;
+
+		} else{
+			return integerDisplay;
+		}
+	}
+
+	updateDisplay(){
+		this.currentNumberTxt.innerText = this.getDisplayNumber(this.currentOperand);
+		if(this.operation != null){
+			this.previousNumberTxt.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
+		}else{
+			this.previousNumberTxt.innerText = '';
+		}
+	}
+
+
 }
 
-numbers.forEach((num)=> num.addEventListener('click', (e)=>{
-	formula.push(e.target.innerText);
-	if(formula[0] === '-' || formula[0] === '+'){
-		leftOperand += e.target.innerText;
-	}
-	else if(operator){
-		rightOperand += e.target.innerText;
-	}
-	else{
-		leftOperand += e.target.innerText;
-	}
-	view();
-}))
+
+const previousNumberTxtElement = document.querySelector('.previousNumber');
+const currentNumberTxtElement = document.querySelector('.currentNumber');
+const opeartionButtons = document.querySelectorAll('[data-operation]');
+const clearAllButton = document.querySelector('.clear');
+const equalButton = document.querySelector('.equal');
 
 
 
-plus.addEventListener('click', e=>{
-	formula.push(e.target.innerText);
-	operand = '+';
-	if(formula[0] === '+'){
-		operator = false;
-	}else{
-		operator = true;
-	}
-})
+const numbersButtons = document.querySelectorAll('[data-number]');
 
-minus.addEventListener('click', e=>{
-	formula.push(e.target.innerText);
-	operand = '-';
-	if(formula[0] === '-'){
-		operator = false;
-	}else{
-		operator = true;
-	}
-})
 
-divide.addEventListener('click', e=>{
-	formula.push(e.target.innerText);
-	operand = '/';
-	operator = true;
-})
 
-cross.addEventListener('click', e=>{
-	formula.push(e.target.innerText);
-	operand = '*';
-	operator = true;
-})
+// Initiate Calculator Object
+const calculator = new Calculator(previousNumberTxtElement, currentNumberTxtElement);
 
 
 
 
-equal.addEventListener('click', e=>{
-	result.innerText = 0;
-	if(leftOperand !== '' && rightOperand !== ''){
-		calculate(leftOperand, rightOperand);
-	}else{
-		result.innerText = 0;
-		leftOperand = '';
-		rightOperand = '';
-		operand = '';
-		operator = false;
-		formula = [];
-	}
+numbersButtons.forEach((num)=> num.addEventListener('click', (e)=>{
+	calculator.addNumber(num.innerText);
+	calculator.updateDisplay();
+}));
+
+
+opeartionButtons.forEach(btn=> {
+	btn.addEventListener('click', ()=>{
+		calculator.chooseOperation(btn.innerText);
+		calculator.updateDisplay();
+	})
 });
 
 
 
-// Clear
-clearBtn.addEventListener('click', e=>{
-	formula = [];
-	operator = false;
-	leftOperand = '';
-	rightOperand = '';
-	result.innerText = 0;
-})
+equalButton.addEventListener('click', (e)=>{
+	calculator.compute();
+	calculator.updateDisplay();
+});
 
-// Show Results
-function view(){
-	let x = new String();
-	for (let i of formula){
-		x += i;
-	}
-	calcForm.innerText = x;
-	return result.innerText = 0;
-}
-
-
-function calculate(leftPart, rightPart){
-	const calculateResult = operations[operand](Number(leftPart), Number(rightPart));
-	if(leftPart && rightPart){
-		result.textContent = '';
-		result.textContent = calculateResult;
-	}
-	formula = [];
-	operator = false;
-	leftOperand = '';
-	operand = '';
-	rightOperand = '';
-}
+clearAllButton.addEventListener('click', (e)=>{
+	calculator.clearResult();
+	calculator.updateDisplay();
+});

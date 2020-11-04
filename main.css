@@ -17,36 +17,49 @@ body{
 	grid-template-rows: repeat(6, 62px);
 	grid-template-areas: 
 	"result result result result"
+	"result result result result"
 	"plus minus crossB divide"
 	"seven eight nine equal"
 	"four five six equal"
 	"one two three equal"
 	"zeroB dot clear equal";
 	grid-gap: 10px;
-	padding: 2.6rem 0.9rem 0rem 0.9rem;
+	/*padding: 2.6rem 0.9rem 0rem 0.9rem;*/
 	border-radius: 10px;
 	border:none;
-	box-shadow: 2px 3px 10px rgba(0,0,0,0.5)
+	box-shadow: 2px 3px 10px rgba(0,0,0,0.5);
 }
 
 .result{
-
 	border:1px solid black;
 	grid-area: result;
 	border:1px solid #aaaaaa;
-	padding: 0.7rem 1rem;
 	font-size: 2rem;
 	background-color: #eeeeee;
 	position: relative;
 	border-radius: 4px;
 	color:rgba(10,10,10,.7);
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-end;
+	flex-direction: column;
+	padding: 0.2rem;
+}
+
+.result .previousNumber{
+	font-size: 1.4rem;
+
+}
+.result .currentNumber{
+	word-break: break-all;
+	word-wrap: break-word;
+	font-size: 2.5rem;
 }
 
 button{
 	display: block;
 	outline:none;
-/*	box-shadow: 2px 2px 2px rgba(0,0,0, 0.3);
-*/	transition: background-color 0.2s linear, color 0.2s linear;
+	transition: background-color 0.2s linear, color 0.2s linear;
 }
 
 button:hover{
@@ -63,12 +76,6 @@ button:active{
 
 }
 
-.calculateFormula{
-	position: absolute;
-	top:0;
-	right: 0;
-	font-size: 1.2rem
-}
 
 .plus{
 	grid-area: plus;
